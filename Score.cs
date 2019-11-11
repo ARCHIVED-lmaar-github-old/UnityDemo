@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Score : MonoBehaviour
@@ -21,7 +19,7 @@ public class Score : MonoBehaviour
         if(!GameOver)
         {
             float score = (player.position.z + 14.51f) * 100;
-            scoreText.text = score.ToString("0"); // score.ToString();
+            scoreText.text = score.ToString("0");
         }
     }
 }

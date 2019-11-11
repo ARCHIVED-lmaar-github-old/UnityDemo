@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SphereForward : MonoBehaviour
 {
@@ -21,6 +19,7 @@ public class SphereForward : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Moves object forward a set amount automatically
         //Debug.Log("FORWARD " + ForwardForce * Time.deltaTime);
         myRigidBody.AddForce(0, 0, ForwardForce * Time.deltaTime);
     }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -96,34 +94,6 @@ public class PlayerScript : MonoBehaviour
             // execute block
             Instantiate(dynFwd, new Vector3(Random.Range(-7.0f, 7.0f), 2, playerRigidBody.position.z + 50), Quaternion.identity);
         }
-
-        /*
-         * DitzelGames
-         * How to create mobile joystick in Unity 2018
-         * https://www.youtube.com/watch?v=8-X3BmvtXT0
-         */
-
-
-        /*
-         * https://www.youtube.com/watch?time_continue=5&v=YaL4JlUwOww&feature=emb_logo
-         * 
-        if(Input.touchCount > 0)
-        {
-            Touch myTouch = Input.touches[0];
-
-            if(myTouch.phase == TouchPhase.Began)
-            {
-                touchOrigin = myTouch.position;
-            }
-            else if (myTouch.phase == TouchPhase.Ended && touchOrigin.x >= 0)
-            {
-                Vector2 touchEnd = myTouch.position;
-                float x = touchEnd.x - touchOrigin.x;
-                float y = touchEnd.y - touchOrigin.y;
-                touchOrigin.x = -1;
-            }
-        }
-        */
     }
 
 
@@ -197,9 +167,7 @@ public class PlayerScript : MonoBehaviour
             }
 
         }
-
-
-
+                
     }
 
 }
