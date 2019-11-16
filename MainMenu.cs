@@ -13,9 +13,14 @@ public class MainMenu : MonoBehaviour
     {        
     }
 
-    public void PlayGame()
+    public void PlayGame(string strLevel)
     {
-        SceneManager.LoadScene("Level01");
+        Debug.Log("PLAY GAME :: " + strLevel);
+
+        //SceneManager.LoadScene("Level01");
+        SceneManager.LoadScene(strLevel);
+
+        Debug.Log("PLAY GAME ** " + strLevel);
     }
 
 }

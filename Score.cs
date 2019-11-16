@@ -7,6 +7,8 @@ public class Score : MonoBehaviour
     public Text scoreText;
     public bool GameOver = false;
 
+    public int PlayerScore = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +20,16 @@ public class Score : MonoBehaviour
     {
         if(!GameOver)
         {
-            float score = (player.position.z + 14.51f) * 100;
-            scoreText.text = score.ToString("0");
+            //float score = Mathf.Pow((player.position.z + 14.51f), 1.2f) * 20;
+            //scoreText.text = score.ToString("0,0");
+
+            //scoreText.text = PlayerScore.ToString("0,0");
         }
+    }
+
+    public void AddPoints(int PointsToAdd)
+    {
+        PlayerScore += PointsToAdd;
+        scoreText.text = PlayerScore.ToString("0,0");
     }
 }

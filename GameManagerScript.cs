@@ -29,6 +29,11 @@ public class GameManagerScript : MonoBehaviour
             tmpGameOver.SetText("GAME OVER!");
             tmpPlayAgain.SetText("PLAY AGAIN");
             goGameOver.SetActive(true);
+
+            //GetComponent<AudioSource>().Play();
+            GameObject.Find("Audio/Background").GetComponent<AudioSource>().Stop();
+            GameObject.Find("Audio/Crash").GetComponent<AudioSource>().Play();
+
         }
     }
 

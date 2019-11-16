@@ -14,7 +14,7 @@ public class SelfDestruct : MonoBehaviour
         // Destroys objects once they are past player field of view
         if(gameObject.GetComponent<Rigidbody>().position.z < FindObjectOfType<PlayerScript>().GetComponent<Rigidbody>().position.z - 10)
         {
-            Debug.Log("SELF DESTRUCT " + gameObject.name);
+            //Debug.Log("SELF DESTRUCT " + gameObject.name);
             Destroy(this.gameObject);
         }
     }
