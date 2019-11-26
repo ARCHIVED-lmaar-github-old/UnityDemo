@@ -2,46 +2,27 @@
 
 public class PlayerScript : MonoBehaviour
 {
-    public bool playerDead = false;
-
     public Rigidbody playerRigidBody;
-    public float playerForwardForce;
-    public float playerSidewaysForce;
-    public float playerForwardForceJoystick;
-    public float playerSidewaysForceJoystick;
-    public float playerJumpForce;
-    public float playerSidewaysVelocityJoystick;
+    public float plrForceFwd = 2800;
+    public float plrJumpRadius = 0.6f;
 
-    public GameObject dynObs1;
-    private float dynObs1_time = 0.0f;
-    public float dynObs1_SpawnStart = 20f;
-    public float dynObs1_SpawnInt = 10f;
-    public float dynObs1_SpawnIncr = 200f;
-    public float dynObs1_SpawnIncrMx = 10f;
-    public float dynObs1_YSpawn = 2f;
-    public float dynObs1_SpawnExponent = 1.2f;
+    public bool OptDeadOnStop = true;
 
-    public GameObject dynObs2;
-    private float dynObs2_time = 0.0f;
-    public float dynObs2_SpawnStart = 50f;
-    public float dynObs2_SpawnInt = 3.5f;
-    public float dynObs2_SpawnIncr = 50f;
-    public float dynObs2_SpawnIncrMx = 3f;
-    public float dynObs2_YSpawn = 5f;
-    public float dynObs2_SpawnExponent = 1.1f;
+    public bool OptDeadOnOOB = true;
+    public float OptDeadOOB_X = 10;
+    public float OptDeadOOB_Y = -2;
 
-    public GameObject dynObs3;
-    private float dynObs3_time = 0.0f;
-    public float dynObs3_SpawnStart = 50f;
-    public float dynObs3_SpawnInt = 3.5f;
-    public float dynObs3_SpawnIncr = 50f;
-    public float dynObs3_SpawnIncrMx = 3f;
-    public float dynObs3_YSpawn = 5f;
-    public float dynObs3_SpawnExponent = 1.1f;
+    public float ctrlForceJump = 1000;
+    //public float ctrlJumpTolerance = 0.1f;
 
-    public GameObject dynFwd;
-    private float dynFwd_time = 0.0f;
-    public float dynFwd_SpawnInt = 8.4f;
+    public float ctlrForceVert = 15;
+    public float ctlrForceHoriz = 30;
+
+    public float joyForceVert = 15;
+    public float joyForceHoriz = 28;
+    //public float playerSidewaysVelocityJoystick = 600;
+
+
 
     private Vector2 touchOrigin = -Vector2.one;
 
@@ -51,12 +32,15 @@ public class PlayerScript : MonoBehaviour
 
     protected float distToGround;
 
+    public bool playerDead = false;
+
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("*** START: PlayerScript ***");
 
-        js = FindObjectOfType<Joystick>();
+        js = GameObject.Find("Joy1").GetComponent<Joystick>();
+        //js = FindObjectOfType<Joystick>();
         jb = FindObjectOfType<JoyButton>();
 
         // get the distance to ground
@@ -66,88 +50,79 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!playerDead)
-        {
-            dynObs1_time += Time.deltaTime;
-            dynObs2_time += Time.deltaTime;
-            dynObs3_time += Time.deltaTime;
-            dynFwd_time += Time.deltaTime;
-
-            if (playerRigidBody.position.z > dynObs1_SpawnIncr)
-            {
-                float IncrFactor = Mathf.Pow(((playerRigidBody.position.z - dynObs1_SpawnIncr) / dynObs1_SpawnIncr), dynObs1_SpawnExponent);
-                if (IncrFactor > dynObs1_SpawnIncrMx) IncrFactor = dynObs1_SpawnIncrMx;
-                dynObs1_time += Time.deltaTime * IncrFactor;
-            }
-
-            if (playerRigidBody.position.z > dynObs2_SpawnIncr)
-            {
-                float IncrFactor = Mathf.Pow(((playerRigidBody.position.z - dynObs1_SpawnIncr) / dynObs1_SpawnIncr), dynObs2_SpawnExponent);
-                if (IncrFactor > dynObs2_SpawnIncrMx) IncrFactor = dynObs2_SpawnIncrMx;
-                dynObs2_time += Time.deltaTime * IncrFactor;
-            }
-
-            if (playerRigidBody.position.z > dynObs3_SpawnIncr)
-            {
-                float IncrFactor = Mathf.Pow(((playerRigidBody.position.z - dynObs1_SpawnIncr) / dynObs1_SpawnIncr), dynObs3_SpawnExponent);
-                if (IncrFactor > dynObs3_SpawnIncrMx) IncrFactor = dynObs3_SpawnIncrMx;
-                dynObs3_time += Time.deltaTime * IncrFactor;
-            }
-
-            if (dynObs1_time >= dynObs1_SpawnInt && playerRigidBody.position.z > dynObs1_SpawnStart)
-            {
-                dynObs1_time = 0.0f;
-
-                // execute block
-                Instantiate(dynObs1, new Vector3(Random.Range(-7.0f, 7.0f), Random.Range(1f, dynObs1_YSpawn), playerRigidBody.position.z + 80), Quaternion.identity);
-            }
-
-            if (dynObs2_time >= dynObs2_SpawnInt && playerRigidBody.position.z > dynObs2_SpawnStart)
-            {
-                dynObs2_time = 0.0f;
-
-                // execute block
-                Instantiate(dynObs2, new Vector3(Random.Range(-7.0f, 7.0f), Random.Range(1f, dynObs2_YSpawn), playerRigidBody.position.z + 80), Quaternion.identity);
-            }
-
-            if (dynObs3_time >= dynObs3_SpawnInt && playerRigidBody.position.z > dynObs3_SpawnStart)
-            {
-                dynObs3_time = 0.0f;
-
-                // execute block
-                Instantiate(dynObs3, new Vector3(Random.Range(-7.0f, 7.0f), Random.Range(1f, dynObs3_YSpawn), playerRigidBody.position.z + 80), Quaternion.identity);
-            }
-
-            if(dynFwd != null)
-            if (dynFwd_time >= dynFwd_SpawnInt && playerRigidBody.position.z > 10)
-            {
-                dynFwd_time = 0.0f;
-
-                // execute block
-                Instantiate(dynFwd, new Vector3(Random.Range(-7.0f, 7.0f), 2, playerRigidBody.position.z + 50), Quaternion.identity);
-            }
-        }
     }
 
 
     private void OnMouseDown()
     {
-        Debug.Log("*** PLAYER :: MOUSEDOWN ***");
+        // Debug.Log("*** PLAYER :: MOUSEDOWN ***");
 
+        Jump();
+
+        /*
         if (!jump && !playerDead)
         {
-            if (Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.05f))
+            //if (Physics.Raycast(transform.position, -Vector3.up, distToGround + ctrlJumpTolerance))
+            if (
+                Physics.CheckSphere(transform.position, plrJumpRadius, 9)
+            )
             {
                 //Debug.Log("JUMP!!!");
 
                 jump = true;                
-                playerRigidBody.velocity = new Vector3(playerRigidBody.velocity.x, playerJumpForce * (1 + FindObjectOfType<ScoreCoins>().PlayerScore / 50) / 110, playerRigidBody.velocity.z);
+                playerRigidBody.velocity = new Vector3(playerRigidBody.velocity.x, ctrlForceJump * (1 + FindObjectOfType<ScoreCoins>().PlayerScore / 50) / 110, playerRigidBody.velocity.z);
 
                 GameObject.Find("Audio/Jump").GetComponent<AudioSource>().Play();
             }
             else
                 jump = false;
         }
+        */
+    }
+
+    public void Jump()
+    {
+        if (!jump && !playerDead)
+        {
+            if( IsGrounded() )
+            {
+                jump = true;
+                //playerRigidBody.AddForce(0, playerJumpForce * Time.deltaTime, 0, ForceMode.VelocityChange);
+                playerRigidBody.velocity = new Vector3(playerRigidBody.velocity.x, ctrlForceJump * (1 + FindObjectOfType<ScoreCoins>().PlayerScore / 50) / 110, playerRigidBody.velocity.z);
+
+                GameObject.Find("Audio/Jump").GetComponent<AudioSource>().Play();
+            }
+        }
+    }
+
+
+    public bool IsGrounded()
+    {
+
+        /*
+        CharacterController charCtrl;
+
+            charCtrl = GetComponent<CharacterController>();
+
+            RaycastHit hit;
+
+        Vector3 p1 = transform.position;
+        float distanceToObstacle = 0;
+
+        // Cast a sphere wrapping character controller 10 meters forward
+        // to see if it is about to hit anything.
+        if (Physics.SphereCast(p1, 0.6f, transform.up, out hit))
+        {
+            distanceToObstacle = hit.distance;
+            //Debug.Log("SPHERECAST = " + distanceToObstacle);
+        }
+        */
+
+        // return playerRigidBody.position.y < 1.05 && playerRigidBody.position.y > .9;
+        // return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.05f);
+        // return Physics.CheckSphere(transform.position, plrJumpRadius, 9);
+
+        return Physics.CheckSphere(transform.position, plrJumpRadius, ~(1<<9));
     }
 
     // Update is called once per frame
@@ -158,61 +133,83 @@ public class PlayerScript : MonoBehaviour
         if(!playerDead)
         {
 
-            playerRigidBody.AddForce(0, 0, playerForwardForce * Time.deltaTime);
+            playerRigidBody.AddForce(0, 0, plrForceFwd * Time.deltaTime);
 
-            if (Input.GetKey("d"))
+
+            if (Input.GetAxis("Horizontal") != 0) // if (Input.GetKey("d"))   // if (Input.GetKey("a")) 
             {
-                playerRigidBody.AddForce(playerSidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+                //Debug.Log("H = " + Input.GetAxis("Horizontal"));
+                playerRigidBody.AddForce(Input.GetAxis("Horizontal") * ctlrForceHoriz * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
             }
 
-            if (Input.GetKey("a"))
+            if (Input.GetAxis("Vertical") != 0) // if (Input.GetKey("w"))  // if (Input.GetKey("s")) 
             {
-                playerRigidBody.AddForce(-playerSidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+                //Debug.Log("V = " + Input.GetAxis("Vertical"));
+                playerRigidBody.AddForce(0, 0, Input.GetAxis("Vertical") * ctlrForceVert * Time.deltaTime, ForceMode.VelocityChange);
             }
 
-            if (transform.position.x < -10 || transform.position.x > 10 || transform.position.y < -2)
+            if (OptDeadOnOOB)
             {
-                // Debug.Log("*** PLAYER::FELL OR OUT OF BOUNDS ***");
-                FindObjectOfType<GameManagerScript>().EndGame();
+                if (transform.position.x < -OptDeadOOB_X || transform.position.x > OptDeadOOB_X || transform.position.y < OptDeadOOB_Y)
+                {
+                    Debug.Log("*** PLAYER :: FELL OR OUT OF BOUNDS ***");
+                    FindObjectOfType<GameManagerScript>().EndGame();
+                }
             }
 
-            if (playerRigidBody.position.z > 0 && playerRigidBody.velocity.z < 3.5)
+            if (OptDeadOnStop)
             {
-                // Debug.Log("*** PLAYER::STOP ***");
-                FindObjectOfType<GameManagerScript>().EndGame();
+                if (playerRigidBody.position.z > 0 && playerRigidBody.velocity.z < 3.5)
+                {
+                    Debug.Log("*** PLAYER :: STOP ***");
+                    FindObjectOfType<GameManagerScript>().EndGame();
+                }
             }
 
             // Controller
-            playerRigidBody.AddForce(js.Horizontal * playerSidewaysForceJoystick, playerRigidBody.velocity.y, js.Vertical * playerForwardForceJoystick);
+            playerRigidBody.AddForce(js.Horizontal * joyForceHoriz, playerRigidBody.velocity.y, js.Vertical * joyForceVert);
             //playerRigidBody.velocity = new Vector3(js.Horizontal * playerSidewaysVelocityJoystick * Time.deltaTime, playerRigidBody.velocity.y, playerRigidBody.velocity.z);
-            
-            if (!jump && (Input.GetKey("w") || jb.Pressed) && !playerDead)
-            {
-                //if (playerRigidBody.position.y < 1.05 && playerRigidBody.position.y > .9)
-                if (Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.05f))
-                {
-                    //Debug.Log("JUMP!!!");
 
-                    jump = true;
-                    //playerRigidBody.AddForce(0, playerJumpForce * Time.deltaTime, 0, ForceMode.VelocityChange);
-                    playerRigidBody.velocity = new Vector3(playerRigidBody.velocity.x, playerJumpForce * (1+FindObjectOfType<ScoreCoins>().PlayerScore/50) / 110, playerRigidBody.velocity.z);
-                    
-                    GameObject.Find("Audio/Jump").GetComponent<AudioSource>().Play();
-                }
-                else
-                    jump = false;
+
+            if (Input.GetButton("Jump") || jb.Pressed)
+            {
+                Jump();
             }
 
+            /*
+            // Clear Jump once key is released or player is no longer grounded
             if (jump)
             {
                 if (!Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.2f) || (!jb.Pressed && !Input.GetKey("w")))
                 {
-                    jump = false;
+                    //jump = false;
                 }
             }
+            */
 
         }
-                
+
     }
+
+
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Debug.Log("PLAYER :: COLLISION :: " + collision.collider.name + " / " + collision.collider.tag);
+
+        // Reset the jump ability on a collision
+        jump = false;
+
+        /*
+        if (collision.collider.tag == "Obstacle")
+        {
+            //playerScript.enabled = false;
+            GetComponent<PlayerScript>().enabled = false;
+
+            FindObjectOfType<GameManagerScript>().EndGame();
+        }
+        */
+    }
+    
 
 }

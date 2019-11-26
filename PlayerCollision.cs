@@ -8,7 +8,7 @@ public class PlayerCollision : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // Debug.Log("PLAYER :: COLLISION :: " + collision.collider.name);
-
+        /*
         if (collision.collider.tag == "Obstacle" && false)
         {
             //playerScript.enabled = false;
@@ -16,6 +16,7 @@ public class PlayerCollision : MonoBehaviour
 
             FindObjectOfType<GameManagerScript>().EndGame();
         }
+        */
     }
 
 

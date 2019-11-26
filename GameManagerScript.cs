@@ -13,6 +13,10 @@ public class GameManagerScript : MonoBehaviour
     public TMP_Text tmpPlayAgain;
     public GameObject goGameOver;
 
+
+
+
+
     public void EndGame()
     {
         if (gameHasEnded == false)
@@ -55,6 +59,7 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 
 }
