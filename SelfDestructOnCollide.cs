@@ -25,7 +25,7 @@ public class SelfDestructOnCollide : MonoBehaviour
         if (collision.collider.tag != "Player" && collision.collider.tag != "Bullet")
         {
             Destroy(this.gameObject, DestructTime);
-            Debug.Log("DESTROY :: " + collision.collider.name + " / " + collision.collider.tag);
+            //Debug.Log("SELF DESTRUCT ON COLLIDE :: " + collision.collider.name + " / " + collision.collider.tag);
         }
 
     }

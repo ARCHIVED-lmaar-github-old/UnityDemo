@@ -2,16 +2,14 @@
 
 public class PlayerScript : MonoBehaviour
 {
+    [Header("Global")]
     public Rigidbody playerRigidBody;
+
+    [Header("Movement")]
     public float plrForceFwd = 2800;
     public float plrJumpRadius = 0.6f;
 
-    public bool OptDeadOnStop = true;
-
-    public bool OptDeadOnOOB = true;
-    public float OptDeadOOB_X = 10;
-    public float OptDeadOOB_Y = -2;
-
+    [Header("Controls")]
     public float ctrlForceJump = 1000;
     //public float ctrlJumpTolerance = 0.1f;
 
@@ -22,6 +20,12 @@ public class PlayerScript : MonoBehaviour
     public float joyForceHoriz = 28;
     //public float playerSidewaysVelocityJoystick = 600;
 
+    [Header("Game Options")]
+    public bool OptDeadOnStop = true;
+
+    public bool OptDeadOnOOB = true;
+    public float OptDeadOOB_X = 10;
+    public float OptDeadOOB_Y = -2;
 
 
     private Vector2 touchOrigin = -Vector2.one;
@@ -32,6 +36,7 @@ public class PlayerScript : MonoBehaviour
 
     protected float distToGround;
 
+    [Header("Internal Use Only")]
     public bool playerDead = false;
 
     // Start is called before the first frame update

@@ -2,12 +2,15 @@
 
 public class ScoreOnCollide : MonoBehaviour
 {
-    public string scoreAudio = "Audio/Coin";
-    
+    [Header("Score")]
     public int itemScore = 1000;
     public int coinScore = 0;
     public float destroyOnHitTime = 0f;
 
+    [Header("Audio")]
+    public string scoreAudio = "Audio/Coin";
+
+    [Header("Explosive Reaction")]
     public bool explodeOnHit = false;
     public float explodeForceX = 100;
     public float explodeForceY = 1000;
@@ -20,7 +23,7 @@ public class ScoreOnCollide : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        //Debug.Log("SCORE COLLISION :: " + collision.name);
+        Debug.Log("SCORE COLLISION :: " + collision.name);
 
         if (collision.tag == "Player" && !ScoreYet)
         {
@@ -30,7 +33,7 @@ public class ScoreOnCollide : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Debug.Log("PLAYER :: COLLISION :: " + collision.collider.name);
+        Debug.Log("SCORE ON COLLISION :: " + collision.collider.name);
 
         if (collision.collider.tag == "Player" && !ScoreYet)
         {

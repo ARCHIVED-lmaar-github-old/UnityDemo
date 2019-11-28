@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GameSpawnManager : MonoBehaviour
 {
+    [Header("Global Settings")]
     public float Master_X = 7f;
-    
+
+    [Header("Spawn 1")]
     public GameObject Spawn1;
     private float Spawn1_time = 0.0f;
     public float Spawn1_Start = 0f;
@@ -17,6 +19,7 @@ public class GameSpawnManager : MonoBehaviour
     public float Spawn1_Z = 80f;
     public float Spawn1_Exponent = 1.2f;
 
+    [Header("Spawn 2")]
     public GameObject Spawn2;
     private float Spawn2_time = 0.0f;
     public float Spawn2_Start = 50f;
@@ -28,6 +31,7 @@ public class GameSpawnManager : MonoBehaviour
     public float Spawn2_Z = 80f;
     public float Spawn2_Exponent = 1.1f;
 
+    [Header("Spawn 3")]
     public GameObject Spawn3;
     private float Spawn3_time = 0.0f;
     public float Spawn3_Start = 50f;
@@ -39,6 +43,7 @@ public class GameSpawnManager : MonoBehaviour
     public float Spawn3_Z = 80f;
     public float Spawn3_Exponent = 1.1f;
 
+    [Header("Spawn 4")]
     public GameObject Spawn4;
     private float Spawn4_time = 0.0f;
     public float Spawn4_Start = 0f;
@@ -50,6 +55,7 @@ public class GameSpawnManager : MonoBehaviour
     public float Spawn4_Z = 80f;
     public float Spawn4_Exponent = 1.1f;
 
+    [Header("Spawn NPC")]
     public GameObject SpawnNPC;
     private float SpawnNPC_time = 0.0f;
     public float SpawnNPC_Interval = 8.4f;
