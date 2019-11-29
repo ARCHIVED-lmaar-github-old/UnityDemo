@@ -33,7 +33,7 @@ public class ScoreOnCollide : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("SCORE ON COLLISION :: " + collision.collider.name);
+        Debug.Log("SCORE ON COLLISION :: " + gameObject.name + " vs " + collision.collider.name);
 
         if (collision.collider.tag == "Player" && !ScoreYet)
         {
@@ -68,7 +68,7 @@ public class ScoreOnCollide : MonoBehaviour
             rb.AddTorque(Random.Range(0, explodeTorque), Random.Range(0, explodeTorque), Random.Range(0, explodeTorque));
         }
 
-        Debug.Log("SCORE " + gameObject.name);
+        //Debug.Log("SCORE " + gameObject.name);
 
         //ScoreFactor = 1 + (GetComponent<Rigidbody>().position.z / 100);
 

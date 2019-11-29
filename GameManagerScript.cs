@@ -14,8 +14,11 @@ public class GameManagerScript : MonoBehaviour
     public GameObject goGameOver;
 
 
-
-
+    // Start is called before the first frame update
+    void Start()
+    {
+        goGameOver.SetActive(false);
+    }
 
     public void EndGame()
     {
@@ -27,7 +30,19 @@ public class GameManagerScript : MonoBehaviour
             // Restart Game
             //Invoke("RestartGame", restartDelay);
 
-            FindObjectOfType<PlayerScript>().playerDead = true;
+            PlayerScript ps = FindObjectOfType<PlayerScript>();
+            if (ps)
+            {
+                ps.playerDead = true;
+            }
+
+            PlayerControl_TwinStick pc = GameObject.Find("Player").GetComponent<PlayerControl_TwinStick>();
+            if (pc)
+            {
+                pc.playerDead = true;
+            }
+
+
             FindObjectOfType<Score>().GameOver = true;
 
             tmpGameOver.SetText("GAME OVER!");
@@ -48,18 +63,4 @@ public class GameManagerScript : MonoBehaviour
 
         gameHasEnded = false;
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        goGameOver.SetActive(false);
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
 }

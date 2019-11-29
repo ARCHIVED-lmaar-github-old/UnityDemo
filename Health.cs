@@ -120,9 +120,17 @@ public class Health : MonoBehaviour
 
             DoScoreOnDestroy();
 
-            Destroy(this.gameObject, 0f);
+            if (this.name == "Player")
+            {
+                FindObjectOfType<GameManagerScript>().EndGame();
+            }
+            else
+            {
+                Destroy(this.gameObject, 0f);
+            }
+
             IsDead = true;
-            Debug.Log(":: DEAD ::");
+            //Debug.Log(":: DEAD ::");
         }
     }
     

@@ -13,7 +13,6 @@ public class PlayerControl_TwinStick : MonoBehaviour
     public float BulletROF = 50f;
     public float BulletSpeed = 80f;
     public GameObject Bullet;
-
     protected float bullettime = 0f;
 
 
@@ -42,20 +41,19 @@ public class PlayerControl_TwinStick : MonoBehaviour
 
         //this.transform.Find("BulletEmitter").transform.rotation = Quaternion.LookRotation(LookDirection, Vector3.up);
 
-        be = GameObject.Find("BulletEmitter");
-
+        //be = GameObject.Find("BulletEmitter");
         Transform t = transform.Find("LookRotation/BulletEmitter");
         be = t.gameObject;
 
         playerRigidBody = GetComponent<Rigidbody>();
-
-        bullettime = 0f;
     }
 
 
     // Fixed Update
     void FixedUpdate()
     {
+        if (playerDead) return;
+
         DoMovement();
         DoLook();
     }

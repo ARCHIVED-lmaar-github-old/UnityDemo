@@ -7,6 +7,8 @@ public class JoyButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     public bool Pressed;
     public float ButtonOffset = 64f;
 
+    public bool Floating = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +26,8 @@ public class JoyButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         //Debug.Log("A = " + transform.Find("Button").position);
         //Debug.Log("B = " + eventData.position);
 
-        transform.Find("Button").position = eventData.position + new Vector2(ButtonOffset, -ButtonOffset);
+        if(Floating)
+            transform.Find("Button").position = eventData.position + new Vector2(ButtonOffset, -ButtonOffset);
 
         Pressed = true;
     }

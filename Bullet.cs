@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("BULLET HIT :: " + collision.collider.name + " / " + collision.collider.tag);
+        // Debug.Log("BULLET HIT :: " + collision.collider.name + " / " + collision.collider.tag);
 
         if (collision.collider.tag == "HitBox" || collision.collider.name == "HitBox" )
         {
@@ -38,16 +38,6 @@ public class Bullet : MonoBehaviour
             {
                 damageable.InflictDamage(damage, false);
             }
-
-            // Damage
-            /*
-            Debug.Log("Parent: " + collision.transform.root.name);
-            Health damageable = collision.transform.root.GetComponent<Health>();
-            if (damageable)
-            {
-                damageable.TakeDamage(damage);
-            }
-            */
 
         }
 
