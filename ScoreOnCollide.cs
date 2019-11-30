@@ -23,7 +23,7 @@ public class ScoreOnCollide : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("SCORE COLLISION :: " + collision.name);
+        //Debug.Log("SCORE ON COLLISION TRIGGER :: " + collision.name);
 
         if (collision.tag == "Player" && !ScoreYet)
         {
@@ -33,7 +33,7 @@ public class ScoreOnCollide : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("SCORE ON COLLISION :: " + gameObject.name + " vs " + collision.collider.name);
+        //Debug.Log("SCORE ON COLLISION :: " + gameObject.name + " vs " + collision.collider.name);
 
         if (collision.collider.tag == "Player" && !ScoreYet)
         {

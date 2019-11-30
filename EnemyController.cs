@@ -10,11 +10,16 @@ public class EnemyController : MonoBehaviour
 {
 
     [Header("Weapons")]
+    public bool AutoShoot = true;
     public float BulletROF = 5f;
     public float BulletSpeed = 20f;
     public GameObject Bullet;
     protected float bullettime = 0f;
 
+
+    [Header("Enemy AI")]
+    public float RotationSpeed = 30f;
+    
 
     [Header("Settings")]
     [Tooltip("The max distance at which the enemy can see targets")]
@@ -37,6 +42,7 @@ public class EnemyController : MonoBehaviour
 
     [Header("Internal Use Only")]
     protected GameObject be;
+    protected Transform LookRotation;
 
 
     // Start is called before the first frame update
@@ -45,6 +51,8 @@ public class EnemyController : MonoBehaviour
         //be = GameObject.Find("BulletEmitter");
         Transform t = transform.Find("LookRotation/BulletEmitter");
         be = t.gameObject;
+
+        LookRotation = this.transform.Find("LookRotation");
     }
 
     // Update is called once per frame
@@ -64,48 +72,35 @@ public class EnemyController : MonoBehaviour
 
     void DoLook()
     {
-        /*
-            Vector3 LookDirection = Vector3.right * js2.Horizontal + Vector3.forward * js2.Vertical;
+        //Vector3 LookDirection = Vector3.right * js2.Horizontal + Vector3.forward * js2.Vertical;
 
-            //GameObject.Find("LookRotation").transform.rotation = Quaternion.LookRotation(LookDirection, Vector3.up);
-            this.transform.Find("LookRotation").transform.rotation = Quaternion.LookRotation(LookDirection, Vector3.up);
-            */
+        //GameObject.Find("LookRotation").transform.rotation = Quaternion.LookRotation(LookDirection, Vector3.up);
+        //this.transform.Find("LookRotation").transform.rotation = Quaternion.LookRotation(LookDirection, Vector3.up);
 
+        LookRotation.transform.Rotate(0, Time.deltaTime*RotationSpeed, 0);
 
-
+        if (!AutoShoot) return;
+        
         bullettime += BulletROF * Time.deltaTime;
 
         if (bullettime > 10)
         {
+            // Reset Time
             bullettime = 0;
 
-            GameObject b = Instantiate(Bullet, new Vector3(be.transform.position.x, be.transform.position.y, be.transform.position.z), Quaternion.identity);
+            // Instantiate
+            //GameObject b = Instantiate(Bullet, new Vector3(be.transform.position.x, be.transform.position.y, be.transform.position.z), Quaternion.identity);
+            //GameObject b = Instantiate(Bullet, be.transform.position, Quaternion.identity);
+            //GameObject b = Instantiate(Bullet, be.transform.position, be.transform.rotation);
+            //GameObject b = Instantiate(Bullet, be.transform.position, Quaternion.FromToRotation(be.transform.forward, be.transform.forward));
+            GameObject b = Instantiate(Bullet, be.transform.position, Bullet.transform.rotation);
 
-            //b.transform.TransformDirection(LookDirection);
-
-
-            // Print the rotation around the global X Axis
-            /*
-            Debug.Log("Rotation x=" + transform.eulerAngles.x + " / y=" + transform.eulerAngles.y + " / z=" + transform.eulerAngles.z);
-
-            Quaternion q = Quaternion.AngleAxis(transform.eulerAngles.y, Vector3.up);
-            Vector3 v = q.ToEulerAngles() * BulletSpeed;
-
-            v = transform.rotation;
-
-            Debug.Log("v=" + v);
-            */
-
-            //b.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, BulletSpeed);
-            b.GetComponent<Rigidbody>().velocity = transform.forward * BulletSpeed;
-
-
-
-            //Debug.Log()
-
-            //GameObject.Find(AudioBulletFired).GetComponent<AudioSource>().Play();
-
-
+            // Set Rotation
+            b.transform.rotation = Quaternion.LookRotation(LookRotation.transform.forward) * b.transform.rotation;
+            
+            // Set Velocity
+            //b.GetComponent<Rigidbody>().AddForce(transform.forward * BulletSpeed);
+            b.GetComponent<Rigidbody>().velocity = LookRotation.transform.forward * BulletSpeed;
         }
     }
 

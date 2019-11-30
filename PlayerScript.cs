@@ -58,32 +58,14 @@ public class PlayerScript : MonoBehaviour
     }
 
 
+    /*
     private void OnMouseDown()
     {
         // Debug.Log("*** PLAYER :: MOUSEDOWN ***");
 
         Jump();
-
-        /*
-        if (!jump && !playerDead)
-        {
-            //if (Physics.Raycast(transform.position, -Vector3.up, distToGround + ctrlJumpTolerance))
-            if (
-                Physics.CheckSphere(transform.position, plrJumpRadius, 9)
-            )
-            {
-                //Debug.Log("JUMP!!!");
-
-                jump = true;                
-                playerRigidBody.velocity = new Vector3(playerRigidBody.velocity.x, ctrlForceJump * (1 + FindObjectOfType<ScoreCoins>().PlayerScore / 50) / 110, playerRigidBody.velocity.z);
-
-                GameObject.Find("Audio/Jump").GetComponent<AudioSource>().Play();
-            }
-            else
-                jump = false;
-        }
-        */
     }
+    */
 
     public void Jump()
     {
