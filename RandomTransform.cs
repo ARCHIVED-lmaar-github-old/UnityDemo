@@ -9,10 +9,4 @@ public class RandomTransform : MonoBehaviour
         gameObject.transform.Rotate(Random.Range(0, 359), Random.Range(0, 359), Random.Range(0, 359));
         gameObject.GetComponent<Rigidbody>().AddForce(Random.Range(-25, 25), 0, Random.Range(-10, 50));
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

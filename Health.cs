@@ -9,13 +9,20 @@ public class Health : MonoBehaviour
     [Header("Health")]
     public Image HealthBarFill;
 
-
     [Tooltip("Maximum amount of health")]
     public float maxHealth = 100f;
     [Tooltip("Health ratio at which the critical health vignette starts appearing")]
     [Range(0, 0.5f)] 
     public float criticalHealthRatio = 0.3f;
 
+    [Header("Score")]
+    public int itemScore = 1000;
+    public int coinScore = 0;
+    protected Score score;
+    protected ScoreCoins scoreCoins;
+
+    [Header("Internal Use Only")]
+    public bool IsDead = false;
 
     //public UnityAction<float, GameObject> onDamaged;
     //public UnityAction<float> onHealed;
@@ -29,16 +36,6 @@ public class Health : MonoBehaviour
     public bool isCritical() => getRatio() <= criticalHealthRatio;
 
 
-
-    [Header("Score")]
-    public int itemScore = 1000;
-    public int coinScore = 0;
-    protected Score score;
-    protected ScoreCoins scoreCoins;
-
-
-    [Header("Internal Use Only")]
-    public bool IsDead = false;
 
     private void Start()
     {

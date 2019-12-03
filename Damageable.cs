@@ -11,12 +11,6 @@ public class Damageable : MonoBehaviour
     public Health health { get; private set; }
     
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     void Awake()
     {
         // find the health component either at the same level, or higher in the hierarchy
@@ -25,13 +19,6 @@ public class Damageable : MonoBehaviour
         {
             health = GetComponentInParent<Health>();
         }
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     //public void InflictDamage(float damage, bool isCritical, GameObject damageSource)

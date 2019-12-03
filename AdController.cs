@@ -14,33 +14,29 @@ public class AdController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Monetization.Initialize(game_id, testMode);
         //Debug.Log("AD");
+        Monetization.Initialize(game_id, testMode);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
+        /*
+        // Debug by pressing P        
         if(Input.GetKeyDown(KeyCode.P))
         {
             PlayAd();
         }
-
+        */
     }
 
     public void PlayAd()
     {
-        //Debug.Log("AD Z");
-
         if (Monetization.IsReady(video_id))
         {
             ShowAdPlacementContent ad = Monetization.GetPlacementContent(video_id) as ShowAdPlacementContent;
 
             if (ad != null) ad.Show(AdFinished);
-
-            //Debug.Log("AD READY");
         }
     }
 

@@ -9,16 +9,12 @@ public class Score : MonoBehaviour
 
     public int PlayerScore = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         /*
+        // Original logic to score based on player distance from start
         if(!GameOver)
         {
             float score = Mathf.Pow((player.position.z + 14.51f), 1.2f) * 20;

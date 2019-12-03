@@ -59,6 +59,7 @@ public class PlayerScript : MonoBehaviour
 
 
     /*
+    // Logic for when the mouse is clicked on the object (or tapped on mobile)
     private void OnMouseDown()
     {
         // Debug.Log("*** PLAYER :: MOUSEDOWN ***");
@@ -105,10 +106,13 @@ public class PlayerScript : MonoBehaviour
         }
         */
 
+        // Original code which checked if the player was grounded based on position
         // return playerRigidBody.position.y < 1.05 && playerRigidBody.position.y > .9;
-        // return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.05f);
-        // return Physics.CheckSphere(transform.position, plrJumpRadius, 9);
 
+        // This does a raycast directly down. However, the problem is that the sphere could connect at multiple points
+        // return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.05f);
+
+        // Simplified code to use CheckSphere
         return Physics.CheckSphere(transform.position, plrJumpRadius, ~(1<<9));
     }
 
@@ -117,8 +121,7 @@ public class PlayerScript : MonoBehaviour
     {
         //Debug.Log("*** PLAYER :: VELOCITY " + playerRigidBody.velocity.z);
 
-        if(!playerDead)
-        {
+        if (playerDead) return;
 
             playerRigidBody.AddForce(0, 0, plrForceFwd * Time.deltaTime);
 
@@ -173,8 +176,6 @@ public class PlayerScript : MonoBehaviour
                 }
             }
             */
-
-        }
 
     }
 

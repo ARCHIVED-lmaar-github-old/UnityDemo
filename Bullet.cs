@@ -17,11 +17,6 @@ public class Bullet : MonoBehaviour
         GameObject.Find(AudioBulletFired).GetComponent<AudioSource>().Play();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnCollisionEnter(Collision collision)
     {
         // Debug.Log("BULLET HIT :: " + collision.collider.name + " / " + collision.collider.tag);

@@ -62,14 +62,6 @@ public class EnemyController : MonoBehaviour
         DoLook();
     }
 
-
-    // Fixed Update
-    void FixedUpdate()
-    {
-    }
-
-
-
     void DoLook()
     {
         //Vector3 LookDirection = Vector3.right * js2.Horizontal + Vector3.forward * js2.Vertical;
